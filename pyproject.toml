@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mergoo"
+version = "0.0.6"
+description = "Impelementation of Leeroo LLM composer."
+authors = [{ name = "Leeroo Team", email = "support@leeroo.com" }]
+readme = "README.md"
+keywords = ["LLM", "compose", "MoE", "router"]
+license = {file = "LICENSE"}
+dependencies = [
+    "torch>=2.0.0",
+    "tqdm==4.66.2",
+    "safetensors~=0.4.2",
+    "accelerate~=0.27.2",
+    "transformers",
+    "huggingface_hub",
+    "peft",
+    "typing-extensions",
+    "sentencepiece",
+    "protobuf",
+    "numpy",
+]
+
+[project.urls]
+homepage = "https://github.com/Leeroo-AI/mergoo"
+repository = "https://github.com/Leeroo-AI/mergoo"
+
+[tool.mypy]
+# https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
+python_version = "3.10"
+strict = true
+
+[project.optional-dependencies]
+dev = ["super-lint"]
+
+[tool.setuptools]
+packages = ["mergoo"]
+
+
