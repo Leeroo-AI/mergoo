@@ -22,7 +22,8 @@
 - Device Supported: CPU, MPS, GPU
 - Training choices: Finetune Only Router of MoE layers, Fully fine-tuning of Merged LLM
 
- 
+If you like the project, consider leaving a ⭐️
+
 ## Installation
 Install by pip:
 ```
