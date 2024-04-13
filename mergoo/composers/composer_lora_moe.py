@@ -58,10 +58,10 @@ class ComposeLoraMoeExperts:
         if not model_layer_index:
             valid_layer_index = False
         else:
-            if "lora" in model_layer.lower(): 
+            if "lora" in model_layer.lower():
                 assert len(model_layer_index) == 2
-            else: 
-                assert len(model_layer_index) == 1 # [layer index, adapter index]
+            else:
+                assert len(model_layer_index) == 1  # [layer index, adapter index]
             valid_layer_index = self._check_moe_layers(model_layer_index[0])
 
         if (layer_identifier in model_layer) and valid_layer_index:
@@ -93,47 +93,56 @@ class ComposeLoraMoeExperts:
         Compose all the experts into a single unified checkpoint.
         """
         n = len(self.config["experts"])
-        model = self._load_base_model(self.config['base_model'])
+        model = self._load_base_model(self.config["base_model"])
         self.model_config = model.config.to_dict()
         count_total_router_layers = 0
-        
+
         for ix, expert in enumerate(self.config["experts"]):
             adapter_id = expert["model_id"]
             adapter_config = PeftConfig.from_pretrained(adapter_id)
             adapter_config_ = adapter_config.to_dict()
-            for k,v in adapter_config_.items():
+            for k, v in adapter_config_.items():
                 try:
                     json.dumps(v)
                 except:
                     adapter_config_[k] = str(v)
             self.config["adapter_configs"].append(adapter_config_)
             # check if all the lora are having same target modules
-            if 'router_layers' in self.config:
-                assert self.config['router_layers'] == list(adapter_config.target_modules)
+            if "router_layers" in self.config:
+                assert self.config["router_layers"] == list(
+                    adapter_config.target_modules
+                )
             else:
-                self.config['router_layers'] = list(adapter_config.target_modules)
+                self.config["router_layers"] = list(adapter_config.target_modules)
             # load the adapter
-            model.load_adapter(adapter_id, adapter_name= str(ix))  
-        
+            model.load_adapter(adapter_id, adapter_name=str(ix))
+
         if hasattr(model, "_tied_weights_keys"):
-            self._tied_weights_keys.extend(model._tied_weights_keys)      
-        
+            self._tied_weights_keys.extend(model._tied_weights_keys)
+
         self.state_dict = model.state_dict()
 
         count_router_layers = 0
         count_averaged_layers = 0
         for layer_name, param in tqdm(model.state_dict().items()):
-            if sum([self._is_layer_suitable_for_router(router_layer, layer_name) for
-                router_layer in self.config['router_layers']]) == 1:
+            if (
+                sum(
+                    [
+                        self._is_layer_suitable_for_router(router_layer, layer_name)
+                        for router_layer in self.config["router_layers"]
+                    ]
+                )
+                == 1
+            ):
                 # Note: Index of adapter in the config are kept as adapter names, while saving.
-                # Similar should be case while loading the adapters 
+                # Similar should be case while loading the adapters
                 assert layer_name in self.state_dict
                 count_total_router_layers += 1
                 count_router_layers += 1
             else:
                 assert layer_name in self.state_dict
                 count_averaged_layers += 1
-                
+
         print(f"count_averaged_layers : {count_averaged_layers}")
         print(f"count_router_layers : {count_router_layers}")
         print(f"count_total_router_layers : {count_total_router_layers}")
@@ -168,8 +177,6 @@ class ComposeLoraMoeExperts:
             tied_weights_keys=self._tied_weights_keys,
             max_shard_size=self.max_shard_size,
         )
-        tokenizer = AutoTokenizer.from_pretrained(
-            self.config['base_model']
-        )
+        tokenizer = AutoTokenizer.from_pretrained(self.config["base_model"])
         tokenizer.save_pretrained(checkpoint_path)
         print(f"checkpoint saved at {checkpoint_path}")
