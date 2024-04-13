@@ -15,7 +15,8 @@
 <img src='https://github.com/Leeroo-AI/mergoo/blob/main/static/base_light.png?raw=true' />
 
 ## 🚀 Features
-- Supports recent merging methods including Mixture-of-Experts and Layer-wise merging
+
+- Supports recent merging methods including Mixture-of-Experts and Layer-wise merging, and Mixture-of-Adapters
 - Flexible merging choice for each layer
 - Base Models supported : [Llama](https://llama.meta.com/) and [Mistral](https://huggingface.co/docs/transformers/en/model_doc/mistral)
 - Trainers supported : 🤗 [Trainer](https://huggingface.co/docs/transformers/en/main_classes/trainer), [SFTrainer](https://huggingface.co/docs/trl/en/sft_trainer)
@@ -41,14 +42,16 @@ pip install -e .
 ``` 
 
 ## Quick Start
+### Configuration Setup
+Specifiy the config for merging:  
+- ```model_type```: type of base model. choices: ```mistral```, ```llama```, or ```bert```.
+- ```num_experts_per_token```: Number of experts for each token of MoE.
+- ```experts```: config for experts to merge. includes ```expert_name``` and Hugging Face 🤗```model_id```.
+- ```router_layers```: layers chosen for applying Mixture-of-Experts.
 
-**Merging Models**  
-A sample usage of config and create the merged model
+#### Fully Fine-tuned Experts
+This is a sample config when merging **fully** fine-tuned LLM experts. 
 ```python
-import torch
-from mergoo.compose_experts import ComposeExperts
-
-model_id = "data/mistral-math-code-moe"
 config = {
     "model_type": "mistral",
     "num_experts_per_tok": 2,
@@ -59,20 +62,46 @@ config = {
     ],
     "router_layers": ["gate_proj", "up_proj", "down_proj"]
 }
+```
+For the above example, we merged math and code mistral-based experts. Please refer to [this notebook](https://github.com/Leeroo-AI/mergoo/blob/main/notebooks/llama_compose_trainer.ipynb) for further details!
+
+#### Mixture of Adapters (MoE on LoRA)
+This is a sample config when merging **LoRA** fine-tuned LLM experts. ```mergoo``` builds a routing layer on top of LoRAs, resulting in a **mixture of adapters**.
+```python
+config = {
+    "model_type": "mistral",
+    "num_experts_per_tok": 2,
+    "base_model": "mistralai/Mistral-7B-v0.1",
+    "experts": [
+        {"expert_name": "adapter_1", "model_id": "predibase/customer_support"},
+        {"expert_name": "adapter_2", "model_id": "predibase/customer_support_accounts"},
+        {"expert_name": "adapter_3", "model_id": "predibase/customer_support_orders"},
+        {"expert_name": "adapter_4", "model_id": "predibase/customer_support_payments"}
+    ],
+}
+```
+The ```expert_name``` starts with ```adapter``` instead of ```expert```. Please refer to [this notebook](https://github.com/Leeroo-AI/mergoo/blob/main/notebooks/Mistral_lora_compose_trainer.ipynb) for further details!
+
+### Merge Experts 
+Following the config setup, ```mergoo``` creates the merged LLM as:
+```python
+import torch
+from mergoo.compose_experts import ComposeExperts
 
 # create checkpoint
+model_id = "data/mistral_lora_moe"
 expertmerger = ComposeExperts(config, torch_dtype=torch.float16)
 expertmerger.compose()
 expertmerger.save_checkpoint(model_id)
 ```
-<br>
 
-**Loading / Finetunning Merged models**
+### Load / Finetune Merged Expert
+Now, you can easily train the merged LLM with Hugging Face Trainer:
 ```python
 from transformers import Trainer
 from mergoo.models.modeling_mistral import MistralForCausalLM
 
-model = MistralForCausalLM.from_pretrained("data/mistral-math-code-moe") 
+model = MistralForCausalLM.from_pretrained("data/mistral_lora_moe") 
 # NOTE: 'gate' / router layers are untrained hence weight loading warning would appeare for them
 
 trainer = Trainer( ... )
@@ -91,8 +120,12 @@ After finishing the Quick Start guide, you can explore the tutorials below to fu
 </thead>
 <tbody>
     <tr>
-    <td><a href="https://github.com/Leeroo-AI/mergoo/blob/main/notebooks/llama_compose_trainer.ipynb"> Unified MoE with Domain Experts </a></td>
-    <td>Build a unifined Mixture-of-Experts model with domain-based LLM experts, inspired by <a href=https://arxiv.org/html/2403.07816v1> BTX Research</a>.</td>
+    <td><a href="https://github.com/Leeroo-AI/mergoo/blob/main/notebooks/llama_compose_trainer.ipynb"> MoE with fully fine-tuned LLM experts </a></td>
+    <td>Build a unifined Mixture-of-Experts model with fully fine-tuned experts. Inspired by <a href=https://arxiv.org/html/2403.07816v1> BTX Research</a> (Meta AI).</td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/Leeroo-AI/mergoo/blob/main/notebooks/Mistral_lora_compose_trainer.ipynb"> MoE with LoRA fine-tuned experts  </a></td>
+    <td> Build a Mixture of Adaptes expert. Inspired by <a href=https://arxiv.org/abs/2402.07148>xlora</a> | <a href=https://arxiv.org/abs/2403.03432>Mixture-of-LoRAs</a> | <a href="https://openreview.net/forum?id=uWvKBCYh4S">MoLE</a> | <a href=https://huggingface.co/papers/2402.05859>PHATGOOSE</a> | <a href=https://arxiv.org/abs/2402.12851>MoELoRA</a></td> 
   </tr>
 </tbody>
 </table>
@@ -114,7 +147,7 @@ Here is `mergoo` roadmap:
 - [X] Support experts based on [LLaMa](https://huggingface.co/docs/transformers/en/model_doc/llama) and [Mistral](https://huggingface.co/docs/transformers/en/model_doc/mistral)
 - [ ] Router Load balancing loss
 - [ ] Lazy loading of tensors for low memory usage in Merging
-- [ ] Support Mixture of LORA Expert ( Base model with multiple trained LORAs)
+- [X] Support Mixture of LORA Experts (Mixture of Adapters)
 - [ ] Support Layer-wise merging, including [Mergekit](https://github.com/arcee-ai/mergekit)
 - [ ] Support experts based on [Gemma](https://blog.google/technology/developers/gemma-open-models) and [Mamba](https://arxiv.org/abs/2312.00752)
 - [ ] Support flash-attention
