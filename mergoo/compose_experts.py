@@ -3,6 +3,7 @@ from transformers import AutoModelForCausalLM
 from mergoo.composers.composer_moe import ComposeMoeExperts
 from mergoo.composers.composer_lora_moe import ComposeLoraMoeExperts
 
+
 class ComposeExperts:
     def __init__(
         self,
@@ -27,16 +28,10 @@ class ComposeExperts:
             composer_class = ComposeMoeExperts
         else:
             composer_class = ComposeLoraMoeExperts
-            
+
         self.composer = composer_class(
-            config,
-            torch_dtype,
-            device,
-            device_map,
-            max_shard_size,
-            model_cls
+            config, torch_dtype, device, device_map, max_shard_size, model_cls
         )
-    
+
     def __getattr__(self, attr: str):
         return getattr(self.composer, attr)
-            
