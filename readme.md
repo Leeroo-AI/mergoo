@@ -16,12 +16,12 @@
 
 ## 🚀 Features
 
-- Supports recent merging methods including Mixture-of-Experts and Layer-wise merging, and Mixture-of-Adapters
-- Flexible merging choice for each layer
-- Base Models supported : [Llama](https://llama.meta.com/) and [Mistral](https://huggingface.co/docs/transformers/en/model_doc/mistral)
-- Trainers supported : 🤗 [Trainer](https://huggingface.co/docs/transformers/en/main_classes/trainer), [SFTrainer](https://huggingface.co/docs/trl/en/sft_trainer)
+- Supports several merging methods: **Mixture-of-Experts**, **Mixture-of-Adapters**, and **Layer-wise merging** 
+- Flexible merging for each layer
+- Base Models supported : [Llama](https://llama.meta.com/), [Mistral](https://huggingface.co/docs/transformers/en/model_doc/mistral), and [BERT](https://huggingface.co/docs/transformers/en/model_doc/bert)
+- Trainers supported : 🤗 [Trainer](https://huggingface.co/docs/transformers/en/main_classes/trainer), [SFTrainer](https://huggingface.co/docs/trl/en/sft_trainer), [PEFT](https://huggingface.co/docs/peft/en/index)
 - Device Supported: CPU, MPS, GPU
-- Training choices: Finetune Only Router of MoE layers, Fully fine-tuning of Merged LLM
+- Training choices: Only Router of MoE layers, or Fully fine-tuning of Merged LLM
 
 If you like the project, consider leaving a ⭐️
 
@@ -148,7 +148,7 @@ Here is `mergoo` roadmap:
 - [ ] Router Load balancing loss
 - [ ] Lazy loading of tensors for low memory usage in Merging
 - [X] Support Mixture of LORA Experts (Mixture of Adapters)
-- [ ] Support Layer-wise merging, including [Mergekit](https://github.com/arcee-ai/mergekit)
+- [ ] Support other Layer-wise merging methods, including [Mergekit](https://github.com/arcee-ai/mergekit)
 - [ ] Support experts based on [Gemma](https://blog.google/technology/developers/gemma-open-models) and [Mamba](https://arxiv.org/abs/2312.00752)
 - [ ] Support flash-attention
 - [ ] Support Mixture of Depths Transformer
