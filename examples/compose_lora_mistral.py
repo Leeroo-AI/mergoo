@@ -14,12 +14,13 @@ config = {
         {"expert_name": "adapter_1", "model_id": "predibase/customer_support"},
         {"expert_name": "adapter_2", "model_id": "predibase/customer_support_accounts"},
         {"expert_name": "adapter_3", "model_id": "predibase/customer_support_orders"},
-        {"expert_name": "adapter_4", "model_id": "predibase/customer_support_payments"}
+        {"expert_name": "adapter_4", "model_id": "predibase/customer_support_payments"},
     ],
 }
 
 # create checkpoint
 import os
+
 if not os.path.exists(model_id):
     expertcomposer = ComposeExperts(config)
     expertcomposer.compose()
@@ -28,9 +29,7 @@ if not os.path.exists(model_id):
 
 # load the composed checkkpoint
 model = MistralForCausalLM.from_pretrained(
-    model_id,
-    torch_dtype= torch.float16,
-    device_map = "auto"
+    model_id, torch_dtype=torch.float16, device_map="auto"
 )  # 'gate' / router layers are untrained hence loaded warning would appeare for them
 
 out = model(torch.tensor([[1, 2, 3, 33, 44]], device=model.device))
