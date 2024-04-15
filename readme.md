@@ -127,8 +127,13 @@ After finishing the Quick Start guide, you can explore the tutorials below to fu
     <td><a href="https://github.com/Leeroo-AI/mergoo/blob/main/notebooks/Mistral_lora_compose_trainer.ipynb"> MoE with LoRA fine-tuned experts  </a></td>
     <td> Build a Mixture of Adaptes expert. Inspired by <a href=https://arxiv.org/abs/2402.07148>xlora</a> | <a href=https://arxiv.org/abs/2403.03432>Mixture-of-LoRAs</a> | <a href="https://openreview.net/forum?id=uWvKBCYh4S">MoLE</a> | <a href=https://huggingface.co/papers/2402.05859>PHATGOOSE</a> | <a href=https://arxiv.org/abs/2402.12851>MoELoRA</a></td> 
   </tr>
+    <tr>
+    <td><a href="https://huggingface.co/blog/alirezamsh/mergoo"> Hugging Face Blog </a></td>
+    <td> Deep dive into research details behind the merging methods of mergoo library</td>
+  </tr>
 </tbody>
 </table>
+
 
 ## Mergoo Roadmap and Contributing
 
