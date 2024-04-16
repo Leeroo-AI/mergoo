@@ -167,6 +167,6 @@ Join our community!
 - [Twitter](https://twitter.com/LeerooAI)
 - [LinkedIn](https://www.linkedin.com/company/leeroo)
 - [Website](https://www.leeroo.com)
-- [Discord](https://discord.gg/tmuXGe3K)
+- [Discord](https://discord.gg/ZQfQTDQf)
 
 Have a question not listed here? Open a GitHub Issue or send us an [email](support@leeroo.com)!
