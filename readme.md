@@ -43,7 +43,7 @@ pip install -e .
 
 ## Quick Start
 ### Configuration Setup
-Specifiy the config for merging:  
+Specify the config for merging:  
 - ```model_type```: type of base model. choices: ```mistral```, ```llama```, or ```bert```.
 - ```num_experts_per_token```: Number of experts for each token of MoE.
 - ```experts```: config for experts to merge. includes ```expert_name``` and Hugging Face 🤗```model_id```.
