@@ -18,7 +18,7 @@
 
 - Supports several merging methods: **Mixture-of-Experts**, **Mixture-of-Adapters**, and **Layer-wise merging** 
 - Flexible merging for each layer
-- Base Models supported : [Llama](https://llama.meta.com/), [Mistral](https://huggingface.co/docs/transformers/en/model_doc/mistral), and [BERT](https://huggingface.co/docs/transformers/en/model_doc/bert)
+- Base Models supported : [Llama](https://llama.meta.com/)(including LLaMa3), [Mistral](https://huggingface.co/docs/transformers/en/model_doc/mistral), and [BERT](https://huggingface.co/docs/transformers/en/model_doc/bert)
 - Trainers supported : 🤗 [Trainer](https://huggingface.co/docs/transformers/en/main_classes/trainer), [SFTrainer](https://huggingface.co/docs/trl/en/sft_trainer), [PEFT](https://huggingface.co/docs/peft/en/index)
 - Device Supported: CPU, MPS, GPU
 - Training choices: Only Router of MoE layers, or Fully fine-tuning of Merged LLM
@@ -130,6 +130,11 @@ After finishing the Quick Start guide, you can explore the tutorials below to fu
     <tr>
     <td><a href="https://huggingface.co/blog/alirezamsh/mergoo"> Hugging Face Blog </a></td>
     <td> Deep dive into research details behind the merging methods of mergoo library</td>
+  </tr>
+  </tr>
+    <tr>
+    <td><a href="https://github.com/Leeroo-AI/mergoo/blob/main/notebooks/integrate_llama3_experts.ipynb"> LLaMa3-based Experts </a></td>
+    <td> Build your own MoE-style LLM experts by integrating LLaMa3-based domain experts</td>
   </tr>
 </tbody>
 </table>
