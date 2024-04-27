@@ -37,6 +37,4 @@ strict = false
 dev = ["super-lint"]
 
 [tool.setuptools]
-packages = ["mergoo"]
-
-
+packages = ["mergoo", "mergoo.composers", "mergoo.models"]
