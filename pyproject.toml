@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mergoo"
-version = "0.0.7"
+version = "0.0.8"
 description = "Impelementation of Leeroo LLM composer."
 authors = [{ name = "Leeroo Team", email = "support@leeroo.com" }]
 readme = "README.md"

@@ -3,6 +3,8 @@
 *This file contains a high-level description of changes that were merged into the mergoo main branch since the last release.
 
 ## 🚀 Features
+0.0.8:
+- Notebook added for [LLaMa3 based LLMs](https://github.com/Leeroo-AI/mergoo/blob/main/notebooks/integrate_llama3_experts.ipynb)
 0.0.7: 
 - Supports Mixture of adapters
 - Notebook added for [Mixture of adapters](https://github.com/Leeroo-AI/mergoo/blob/main/notebooks/Mistral_lora_compose_trainer.ipynb)
@@ -17,8 +19,9 @@
 
 ## 🔧 Fixes & Refactoring
 
-*No changes*
+- issue in pip installation ([#8](https://github.com/Leeroo-AI/mergoo/pull/8))
 
 ## 📝 Documentation and Tutorials
 
 Notebook added for [Mixture of Adapters](https://github.com/Leeroo-AI/mergoo/blob/main/notebooks/Mistral_lora_compose_trainer.ipynb).
+Notebook added for [LLaMa3 based LLMs](https://github.com/Leeroo-AI/mergoo/blob/main/notebooks/integrate_llama3_experts.ipynb)
