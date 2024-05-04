@@ -136,6 +136,11 @@ After finishing the Quick Start guide, you can explore the tutorials below to fu
     <td><a href="https://github.com/Leeroo-AI/mergoo/blob/main/notebooks/integrate_llama3_experts.ipynb"> LLaMa3-based Experts </a></td>
     <td> Build your own MoE-style LLM experts by integrating LLaMa3-based domain experts</td>
   </tr>
+  </tr>
+    <tr>
+    <td><a href="https://github.com/Leeroo-AI/mergoo/blob/main/notebooks/integrate_phi3_experts.ipynb"> Phi3-based Experts </a></td>
+    <td> Create MoE-style LLM architecture by merging Phi3-based fine-tuned models</td>
+  </tr>
 </tbody>
 </table>
 
