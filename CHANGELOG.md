@@ -3,6 +3,9 @@
 *This file contains a high-level description of changes that were merged into the mergoo main branch since the last release.
 
 ## 🚀 Features
+0.0.9:
+- Support Phi3  
+
 0.0.8:  
 - Support LLaMa3
 - Notebook added for [LLaMa3 based LLMs](https://github.com/Leeroo-AI/mergoo/blob/main/notebooks/integrate_llama3_experts.ipynb)  
