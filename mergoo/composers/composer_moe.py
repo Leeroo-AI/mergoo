@@ -74,16 +74,17 @@ class ComposeMoeExperts:
             mps = torch.backends.mps.is_available()
         except:
             mps = False
-        config = AutoConfig.from_pretrained(model_id)
+        config = AutoConfig.from_pretrained(model_id,trust_remote_code=True)
         if config.model_type == "bert":
             model = self.model_cls.from_pretrained(
-                model_id, torch_dtype=self.torch_dtype
+                model_id, torch_dtype=self.torch_dtype, trust_remote_code=True
             )
         else:
             model = self.model_cls.from_pretrained(
                 model_id,
                 torch_dtype=self.torch_dtype,
                 device_map=None if mps else self.device_map,
+                trust_remote_code=True,
             )
         if mps:
             return model.to(self.device)
