@@ -18,7 +18,7 @@
 
 - Supports several merging methods: **Mixture-of-Experts**, **Mixture-of-Adapters**, and **Layer-wise merging** 
 - Flexible merging for each layer
-- Base Models supported : [Llama](https://llama.meta.com/)(including LLaMa3), [Mistral](https://huggingface.co/docs/transformers/en/model_doc/mistral), and [BERT](https://huggingface.co/docs/transformers/en/model_doc/bert)
+- Base Models supported : [Llama](https://llama.meta.com/)(including LLaMa3), [Mistral](https://huggingface.co/docs/transformers/en/model_doc/mistral), [Phi3](https://huggingface.co/docs/transformers/main/en/model_doc/phi3), and [BERT](https://huggingface.co/docs/transformers/en/model_doc/bert)
 - Trainers supported : 🤗 [Trainer](https://huggingface.co/docs/transformers/en/main_classes/trainer), [SFTrainer](https://huggingface.co/docs/trl/en/sft_trainer), [PEFT](https://huggingface.co/docs/peft/en/index)
 - Device Supported: CPU, MPS, GPU
 - Training choices: Only Router of MoE layers, or Fully fine-tuning of Merged LLM
@@ -160,9 +160,10 @@ Here is `mergoo` roadmap:
 - [X] Feature: Routers only for a list of decoder layers indexes
 - [X] Sharded [Safetensor](https://github.com/huggingface/safetensors) Saving
 - [X] Support experts based on [LLaMa](https://huggingface.co/docs/transformers/en/model_doc/llama) and [Mistral](https://huggingface.co/docs/transformers/en/model_doc/mistral)
+- [X] Support experts based on [Phi3](https://huggingface.co/docs/transformers/main/en/model_doc/phi3)
+- [X] Support Mixture of LORA Experts (Mixture of Adapters)
 - [ ] Router Load balancing loss
 - [ ] Lazy loading of tensors for low memory usage in Merging
-- [X] Support Mixture of LORA Experts (Mixture of Adapters)
 - [ ] Support other Layer-wise merging methods, including [Mergekit](https://github.com/arcee-ai/mergekit)
 - [ ] Support experts based on [Gemma](https://blog.google/technology/developers/gemma-open-models) and [Mamba](https://arxiv.org/abs/2312.00752)
 - [ ] Support flash-attention
