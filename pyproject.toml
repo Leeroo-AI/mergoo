@@ -7,7 +7,7 @@ name = "mergoo"
 version = "0.0.9"
 description = "Impelementation of Leeroo LLM composer."
 authors = [{ name = "Leeroo Team", email = "support@leeroo.com" }]
-readme = "README.md"
+readme = "readme.md"
 keywords = ["LLM", "compose", "MoE", "router", "mixture-of-adapters", "merge"]
 license = {file = "LICENSE"}
 dependencies = [
