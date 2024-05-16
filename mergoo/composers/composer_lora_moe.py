@@ -12,7 +12,7 @@ class ComposeLoraMoeExperts:
     def __init__(
         self,
         config,
-        torch_dtype=torch.float16,
+        torch_dtype=torch.bfloat16,
         device="cpu",
         device_map="auto",
         max_shard_size="9GB",
@@ -110,6 +110,8 @@ class ComposeLoraMoeExperts:
             self.config["adapter_configs"].append(adapter_config_)
             # check if all the lora are having same target modules
             if "router_layers" in self.config:
+                print(f"router_layers : {self.config['router_layers']}")
+                print(f"adapter_config.target_modules : {adapter_config.target_modules}")
                 assert self.config["router_layers"] == list(
                     adapter_config.target_modules
                 )

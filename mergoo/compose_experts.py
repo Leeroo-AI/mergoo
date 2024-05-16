@@ -8,7 +8,7 @@ class ComposeExperts:
     def __init__(
         self,
         config,
-        torch_dtype=torch.float16,
+        torch_dtype=torch.bfloat16,
         device="cpu",
         device_map="auto",
         max_shard_size="9GB",

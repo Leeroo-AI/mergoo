@@ -61,7 +61,7 @@ class ComposeMoeExperts:
             valid_layer_index = self._check_moe_layers(model_layer_index[0])
 
         if (layer_identifier in model_layer) and valid_layer_index:
-            if self.config["model_type"] in ("llama", "mistral"):
+            if self.config["model_type"] in ("llama", "mistral", "phi"):
                 if "mlp" in model_layer or "self_attn" in model_layer:
                     return True
             elif self.config["model_type"] == "bert":
