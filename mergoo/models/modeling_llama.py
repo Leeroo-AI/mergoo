@@ -541,8 +541,8 @@ class LlamaFlashAttention2(LlamaAttention):
             cu_seqlens_q, cu_seqlens_k = cu_seq_lens
             max_seqlen_in_batch_q, max_seqlen_in_batch_k = max_seq_lens
 
-            input_dtype = query_states.dtype
-            if input_dtype == torch.float32:
+            # check if any state of q, k, and v has different dtype
+            if not (query_states.dtype == key_states.dtype == value_states.dtype):
                 if torch.is_autocast_enabled():
                     target_dtype = torch.get_autocast_gpu_dtype()
                 # Handle the case where the model is quantized
