@@ -23,5 +23,7 @@
 - Training choices: Finetune Only Router of MoE layers, Fully fine-tuning of Merged LLM
 
 ## 🔧 Fixes & Refactoring
+0.0.10:  
+- Fix bugs ([#15](https://github.com/Leeroo-AI/mergoo/pull/15))
 0.0.8:  
 - issue in pip installation ([#8](https://github.com/Leeroo-AI/mergoo/pull/8))
