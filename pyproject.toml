@@ -12,7 +12,7 @@ keywords = ["LLM", "compose", "MoE", "router", "mixture-of-adapters", "merge"]
 license = {file = "LICENSE"}
 dependencies = [
     "torch>=2.0.0",
-    "tqdm==4.66.2",
+    "tqdm==4.66.3",
     "safetensors~=0.4.2",
     "accelerate~=0.27.2",
     "transformers",
